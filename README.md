@@ -1,6 +1,13 @@
 # flutter_application1
+Simple flutter todo app comparing Provider and Riverpod implementation
 
-A new Flutter project.
+## Provider vs Riverpod
+
+This project uses oversimplified todo app to showcase differences between Provider and Riverpod implementations.
+
+See this diff for details.
+
+
 
 ## Getting Started
 
