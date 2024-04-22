@@ -1,6 +1,22 @@
-# flutter_application1
+# Flutter todo: Provider vs Riverpod [RIVERPOD BRANCH]
+Simple flutter todo app comparing Provider and Riverpod implementation
 
-A new Flutter project.
+## Provider vs Riverpod
+
+This project uses oversimplified todo app to showcase differences between Provider and Riverpod implementations.
+
+See this diff for details.
+[Provider x Riverpod](https://github.com/talhahasanzia/flutter-todo/pull/1/files)
+
+Example diff file:
+![diff](https://github.com/talhahasanzia/flutter-todo/blob/master/screenshots/ss.png)
+
+
+- Checkout `provider` branch for provider implementation [here](https://github.com/talhahasanzia/flutter-todo/tree/provider).
+- Checkout `riverpod` branch for latest riverpod implementation [here](https://github.com/talhahasanzia/flutter-todo/tree/riverpod).
+
+Checkout this migration guide from riverpod: [Provider vs Riverpod](https://riverpod.dev/docs/from_provider/provider_vs_riverpod)
+
 
 ## Getting Started
 
