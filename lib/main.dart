@@ -1,20 +1,23 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application1/task_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => TaskProvider(),
-      child: MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp(
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
@@ -22,17 +25,18 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
         home: MyHomePage(),
-      ),
-    );
+      );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final ScrollController _scrollController = ScrollController();
+
+class MyHomePage extends ConsumerWidget {
+  const MyHomePage({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<TaskProvider>(context);
-    return Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) {
+   
+      return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
@@ -59,7 +63,7 @@ class MyHomePage extends StatelessWidget {
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               title: Text(
-                provider.tasks[index].name,
+                ref.watch(taskProviderProvider)[index].name,
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -78,7 +82,7 @@ class MyHomePage extends StatelessWidget {
               thickness: 1,
             );
           },
-          itemCount: provider.tasks.length),
+          itemCount: ref.watch(taskProviderProvider).length),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
           showDialog(
@@ -99,16 +103,18 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class CustomDialog extends StatelessWidget {
+class CustomDialog extends ConsumerWidget {
   const CustomDialog({
     super.key,
   });
 
+  
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
-    final provider = Provider.of<TaskProvider>(context, listen: false);
+   final provider = ref.read(taskProviderProvider.notifier);
     return Dialog(
       backgroundColor: Colors.blue,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
@@ -123,7 +129,7 @@ class CustomDialog extends StatelessWidget {
           ),
           CustomTextField(
             onChanged: (text) {
-              provider.setName(text);
+             provider.setName(text);
             },
           ),
           Align(
